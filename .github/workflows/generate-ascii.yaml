@@ -13,7 +13,9 @@ jobs:
               run: ls -lrta
 
             - name: Executing Shell Script
-              run: ./ascii-generate.sh
+              run: |
+                chmod +x ascii-generate.sh
+                ./ascii-generate.sh
             
 
 
