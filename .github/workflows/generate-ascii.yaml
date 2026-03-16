@@ -1,0 +1,31 @@
+name: Generate Ascii Repo
+
+on: push
+
+jobs:
+    first_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v6
+
+            - name: List and Read files
+              run: sudo apt install cowsay -y
+
+            - name: Execute Thirdparty library
+              run: cowsay -f dragon "Run for cover this is dragon" >> dragon.txt
+
+            - name: Test output file
+              run: grep dragon dragon.txt
+
+            - name: Display Dragon file
+              run: cat dragon.txt
+            
+            - name: List files
+              run: ls -lrta
+
+            # - name: List files
+            #   run: ls
+            
+            # - name: read files
+            #   run: cat README.md
