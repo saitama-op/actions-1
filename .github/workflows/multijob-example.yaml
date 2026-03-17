@@ -1,0 +1,49 @@
+name: multijob-pipleline
+
+on: push
+
+jobs:
+    build_artifact:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Install cowsay program
+              run: sudo apt install cowsay -y
+
+            - name: Execute cowsay command
+              run: cowsay -f dragon "Run for Cover this is Alpha Dragon" >> dragon.txt
+
+            - name: upload dragon artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: dragon-artifact
+                path: dragon.txt
+
+
+    test_artifact:
+        needs: build_artifact
+        runs-on: ubuntu-latest
+        steps:
+            - name: download dragon artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: dragon-artifact
+ 
+            - name: check for dragon in dragon.txt
+              run: grep -i dragon dragon.txt
+            
+            - name: list files
+              run: ls -lrta
+
+    deploy_release:
+        needs: test_artifact
+        runs-on: ubuntu-latest
+        steps:
+            - name: download dragon artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: dragon-artifact
+            - name: deploying dragon file
+              run: cp dragon.txt dragon_deploy.txt
+
+            - name: check files
+              run: ls -lrta
