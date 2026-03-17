@@ -10,10 +10,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
          - name: build image
-           run: echo "docker build -t $REGISTRY/$DOCKER_USERNAME/${{env.IMAGE_NAME}}"
+           run: echo "docker build -t $REGISTRY/${{vars.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}"
 
          - name: docker login
-           run: echo "docker login --username=$DOCKER_USERNAME --password=${{secrets.DOCKER_PASSWORD}}"
+           run: echo "docker login --username=${{vars.DOCKER_USERNAME}} --password=${{secrets.DOCKER_PASSWORD}}"
     
          - name: docker push image
            run: echo "docker push ${{env.IMAGE_NAME}}"
@@ -23,4 +23,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: run docker
-              run: echo "docker run -d $REGISTRY/env.DOCKER_USERNAME/${{env.IMAGE_NAME}}"
+              run: echo "docker run -d $REGISTRY/{{vars.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}"
