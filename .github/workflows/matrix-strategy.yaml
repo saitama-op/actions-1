@@ -8,7 +8,7 @@ jobs:
             matrix:
                 os: [ubuntu-latest,ubuntu-20.04]
                 images: [hello-world,alpine]
-        run-on: ${{matrix.os}}
+        runs-on: ${{matrix.os}}
         steps:
             - name: display docker version
               run: docker info
